@@ -8,11 +8,12 @@ using Newtonsoft.Json;
 
 namespace Pyramid.Entities
 {
-    [JsonArray("uczestnik")]
-    public class Supervisor : Person
+    [XmlRoot("uczestnik")]
+    public class Member : Person
     {
-        [JsonProperty("uczestnik")]
-        public Subordinate[] Subordinates { get; set; }
-
+        [XmlElement("uczestnik")]
+        public Member[] Members { get; set; }
+        [XmlIgnore]
+        public Member Parent { get; set; }
     }
 }

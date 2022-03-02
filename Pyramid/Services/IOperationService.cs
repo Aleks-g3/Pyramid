@@ -9,6 +9,6 @@ namespace Pyramid.Services
 {
     interface IOperationService
     {
-        List<Person> GetMembers();
+        Member GetHierarchy();
     }
 }

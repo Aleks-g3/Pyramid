@@ -10,7 +10,7 @@ namespace Pyramid.Entities
 {
     public abstract class Person
     {
-        [JsonProperty("id")]
+        [XmlAttribute("id")]
         public long Id { get; set; }
     }
 }

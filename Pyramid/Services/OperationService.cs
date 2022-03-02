@@ -12,66 +12,38 @@ using System.Xml.XPath;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Pyramid.Entities;
+using Pyramid.Util;
 
 namespace Pyramid.Services
 {
     public class OperationService :IOperationService
     {
-        public List<Person> GetMembers()
+        public Member GetHierarchy()
         {
-           ReadDataFromFile();
-
-           return new List<Person>();
+            return FetchHierarchy();
         }
 
-        private void ReadDataFromFile()
+        private Member FetchHierarchy()
         {
-            string json = GetDataFromXmlAsJsonByFilename("Piramida.xml");
-
-            //JObject jo = JObject.Parse(json);
-            //json = jo["piramida"].ToString();
-
-            try
+            var result = XmlReaderExtensions.ReadDataFromFile<PyramidEntity>("Piramida.xml");
+            if (result != null)
             {
-                var dto = JsonConvert.DeserializeObject<Piramida>(json);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
+                SetParent(result.Member);
+                return result.Member;
             }
 
-            
-
+            return null;
         }
 
-        public string GetDataFromXmlAsJsonByFilename(string filename)
+        private void SetParent(Member member)
         {
-            XmlDocument doc = new XmlDocument();
-            doc.Load(filename);
-
-            return JsonConvert.SerializeXmlNode(doc);
-        }
-
-        public static object Deserialize(string json)
-        {
-            return ToObject(JToken.Parse(json));
-        }
-
-        private static object ToObject(JToken token)
-        {
-            switch (token.Type)
+            foreach (var tmpMember in member.Members)
             {
-                case JTokenType.Object:
-                    return token.Children<JProperty>()
-                        .ToDictionary(prop => prop.Name,
-                            prop => ToObject(prop.Value));
-
-                case JTokenType.Array:
-                    return token.Select(ToObject).ToList();
-
-                default:
-                    return ((JValue)token).Value;
+                tmpMember.Parent = member;
+                if (tmpMember.Members != null)
+                {
+                    SetParent(tmpMember);
+                }
             }
         }
     }

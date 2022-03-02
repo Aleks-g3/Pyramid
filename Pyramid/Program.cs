@@ -9,7 +9,7 @@ namespace Pyramid
         {
             IOperationService operationService = new OperationService();
 
-            operationService.GetMembers();
+            var members = operationService.GetHierarchy();
         }
     }
 }

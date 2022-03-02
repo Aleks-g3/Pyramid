@@ -4,14 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace Pyramid.Entities
 {
-    [JsonArray("uczestnik")]
-    public class Subordinate : Person
+    [XmlRoot("piramida")]
+    public class PyramidEntity
     {
-        [JsonProperty("uczestnik")]
-        public Supervisor Superior { get; set; }
+        [XmlElement("uczestnik")]
+        public Member Member { get; set; }
     }
 }
