@@ -10,5 +10,6 @@ namespace Pyramid.Services
     interface IOperationService
     {
         Member GetHierarchy();
+        Transfers GetTransfers();
     }
 }

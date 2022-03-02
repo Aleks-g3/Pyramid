@@ -23,6 +23,13 @@ namespace Pyramid.Services
             return FetchHierarchy();
         }
 
+        public Transfers GetTransfers()
+        {
+            var result = XmlReaderExtensions.ReadDataFromFile<Transfers>("Przelewy.xml");
+
+            return result;
+        }
+
         private Member FetchHierarchy()
         {
             var result = XmlReaderExtensions.ReadDataFromFile<PyramidEntity>("Piramida.xml");

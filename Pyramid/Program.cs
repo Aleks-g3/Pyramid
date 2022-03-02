@@ -10,6 +10,8 @@ namespace Pyramid
             IOperationService operationService = new OperationService();
 
             var members = operationService.GetHierarchy();
+
+            var transfers = operationService.GetTransfers();
         }
     }
 }
