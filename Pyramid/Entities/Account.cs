@@ -16,5 +16,7 @@ namespace Pyramid.Entities
             this.Member = member;
             this.Amount = 0;
         }
+
+        public void IncrementAmount(long amount) => this.Amount += amount;
     }
 }

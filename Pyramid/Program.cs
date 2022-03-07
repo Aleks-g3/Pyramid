@@ -11,7 +11,11 @@ namespace Pyramid
 
             var members = operationService.GetHierarchy();
 
-            var transfers = operationService.GetTransfers();
+            var accounts = operationService.CreateAccounts(members);
+
+            operationService.MakeTransfers(ref accounts);
+
+            operationService.ShowMembersWithSalary(accounts);
         }
     }
 }

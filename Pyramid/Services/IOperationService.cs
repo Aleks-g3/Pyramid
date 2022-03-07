@@ -10,6 +10,8 @@ namespace Pyramid.Services
     interface IOperationService
     {
         Member GetHierarchy();
-        Transfers GetTransfers();
+        void MakeTransfers(ref Account[] accounts);
+        Account[] CreateAccounts(Member members);
+        void ShowMembersWithSalary(Account[] accounts);
     }
 }
